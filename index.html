@@ -93,14 +93,14 @@ myObj.myMethod();
 {% highlight bash %}
 What is this?: {"name":"myObj"}
 {% endhighlight %}
-			<ul><li>When a function is invoked as a property on an object, <span class="this">this</span> is always the object</li></ul>
+			<ul><li>When a function is invoked as a property on an object, <span class="this">this</span> is always the object.</li></ul>
 		</div>
 	</div>
 	<div id="method_this_gotcha" class="step" data-x="18000" data-y="3000">
 		<div class="slide">
 			<h2>The dot is important</h2>
 			<ul>
-				<li>Even if the function is defined as a property, if it isn't called as a property, then <span class="this">this</span> will not be the object.</li>
+				<li>If the function is defined as a property, but isn't called as a property, then <span class="this">this</span> will not be the object.</li>
 			</ul>
 			<ul><li>JavaScript:</li></ul>
 {% highlight javascript %}
@@ -119,13 +119,12 @@ myOtherRef();
 {% highlight bash %}
 What is this?: [object Window]
 {% endhighlight %}
-			<ul><li>In this case because the function wasn't called as an object property, <span class="this">this</span> goes back to being the window.</li></ul>
 		</div>
 	</div>
 	<div id="nested_this" class="step" data-x="21000" data-y="3000">
 		<div class="slide">
 			<h2><span class="this">this</span> in a nested function</h2>
-			<ul><li>Lets say you have a function inside a function. Do they both have the same execution context?</li></ul>
+			<ul><li>Is <span class="this">this</span> the same in a function inside a function?</li></ul>
 			<ul><li>JavaScript:</li></ul>
 {% highlight javascript %}
 var myObj = {
@@ -145,17 +144,15 @@ myObj.myMethod();
 What is this?: [object Object]
 What is this (nested)?: [object Window]
 {% endhighlight %}
-			<ul><li>The answer is no. Each function has its own scope, and its own execution context.</li></ul>
+			<ul><li>Each function has its own scope, and its own <span class="this">this</span>.</li></ul>
 		</div>
 	</div>
 	<div id="call_and_apply" class="step" data-x="24000" data-y="3000">
 		<div class="slide">
 			<h2>Specifying <span class="this">this</span> with call and apply</h2>
 			<ul>
-				<li>Functions have a default execution context when they are called the usual way.</li>
-				<li>There is another way to call functions though, one where you can specify the context.</li>
-				<li>Every function has two methods built in, call and apply.</li>
-				<li>By invoking a function using these methods and passing an object, it is possible to specify an execution context.</li>
+				<li><span class="this">this</span> is determined by how the function is called.</li>
+				<li>Using the function's call and apply methods, it is possible to specify <span class="this">this</span>.</li>
 			</ul>
 			<ul><li>JavaScript:</li></ul>
 {% highlight javascript %}
@@ -181,30 +178,55 @@ What is this?: [object Object]
 		<div class="slide">
 			<h2>When to use call and apply</h2>
 			<ul>
-				<li>call and apply differ in the way that they accept arguments to be passed to the invoked function.
+				<li>call and apply both take <span class="this">this</span> as the first argument</li>
+				<li>call and apply differ in how they pass arguments to the invoked function.
 					<ul>
-						<li>call passes along arguments after the context as they are passed.</li>
-						<li>apply takes an array as a second argument, and passes the values in that array as arguments.</li>
+						<li>call passes along arguments as they are passed to it.</li>
+						<li>apply takes an array of arguments.</li>
 					</ul>
 				</li>
-				<li>There are two main reasons to use call and apply. One is to change the execution context, the other is to preserve it.</li>
+				<li>There are two main reasons to use call and apply.
+					<ul>
+						<li>To change <span class="this">this</span>.</li>
+						<li>To preserve <span class="this">this</span>.</li>
+					</ul>
+				</li>
 			</ul>
 		</div>
 	</div>
-	<div id="practical_call_and_apply_2" class="step" data-x="30000" data-y="3000">
+	<div id="this_is_annoying" class="step" data-x="30000" data-y="3000">
+		<div class="slide">
+			<h2><span class="this">this</span> is annoying...</h2>
+			<ul>
+				<li>Keeping track of <span class="this">this</span> can be a pain.</li>
+				<li>The fact that <span class="this">this</span> changes is essential to how JavaScript works.</li>
+				<li>Prototypal inheritence works because the browser calls prototype methods on other objects.</li>
+			</ul>
+			<ul><li>JavaScript:</li></ul>
+{% highlight javascript %}
+var myArr = [1, 2, 3];
+
+console.log('myArr: ', myArr.join(','));
+// Is the same as:
+console.log('myArr: ', Array.prototype.join.call(myArr, ','));
+{% endhighlight %}
+			<ul><li>Output:</li></ul>
+{% highlight bash %}
+myArr: 1,2,3
+myArr: 1,2,3
+{% endhighlight %}
+		</div>
+	</div>
+	<div id="practical_call_and_apply_2" class="step" data-x="33000" data-y="3000">
 		<div class="slide">
 			<h2>A practical use of call and apply</h2>
 			<ul><li>Lets say you want to extend the regular console logging to prepend a date string.</li></ul>
 			<ul><li>JavaScript:</li></ul>
 {% highlight javascript %}
 function myLogger(){
-  // In every function scope there is a variable called arguments.
-  // It contains all the arguments passed to the function.
-  // arguments looks like an array, but it doesn't have any array methods.
-  // We can use the array prototype methods on arguments by using call and apply
+  // Changing `this`
   Array.prototype.unshift.call(arguments, new Date().toDateString());
-  // Now that we've added the date to arguments, we can apply them to console.log
-  // We pass console as the first argument to preserve the context.
+  // Preserving `this`
   console.log.apply(console, arguments);
 }
 
