@@ -1,0 +1,58 @@
+body {
+	background-image: url(../images/graphy.png);
+	color: #555;
+}
+
+.highlight pre{
+	text-shadow: none;
+	font-size: 20px;
+}
+
+.highlight .bash * {
+	color: #333 !important;
+}
+
+.this {
+	font-family: Consolas, monospace;
+	color: #cb4b16;
+	text-shadow: 1px 1px 1px #333;
+}
+
+.slide {
+	width: 1000px;
+	font-size: 25px;
+}
+
+.slide h2 {
+	font-size: 60px;
+	margin-bottom: 30px;
+	text-shadow: 1px 1px 1px #333;
+}
+
+/* Slides */
+
+#start .slide{
+	text-align: center;
+}
+
+
+#start .slide div {
+	float: left
+}
+
+#start .slide .really_big {
+	font-size: 400px;
+	line-height: 350px;
+	width: 150px;
+}
+
+#start .slide .big {
+	font-size: 75px;
+	margin-top: 160px;
+	width: 700px;
+}
+
+#what_is_this .slide{
+	text-align: center;
+	font-size: 100px;
+}

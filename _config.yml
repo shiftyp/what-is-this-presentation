@@ -1,0 +1,9 @@
+# Site settings
+title: "What is this?"
+description: "A presentation on scope and this."
+baseurl: "/what-is-this-presentation"
+url: "http://shiftyp.github.io"
+
+# Build settings
+markdown: kramdown
+permalink: pretty
