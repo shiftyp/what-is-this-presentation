@@ -1,7 +1,7 @@
 ---
 layout: default
 ---
-
+<span class="nav_message">Use enter to navigate forward, left arrow for previous.</span>
 <div id="impress">
 	<div id="start" class="step">
 		<div class="slide">
@@ -17,8 +17,8 @@ layout: default
 		<div class="slide">
 			<h2>What is <span class="this">this</span>?</h2>
 			<ul>
-				<li><span class="this">this</span> is a keyword and a special variable in JavaScript.</li>
-				<li>It references an object called the "execution context" of the current scope.</li>
+				<li class="invisible"><span class="this">this</span> is a keyword and a special variable in JavaScript.</li>
+				<li class="invisible">It references an object called the "execution context" of the current scope.</li>
 			</ul>
 		</div>
 	</div>
@@ -39,45 +39,54 @@ What is this?: [object Window]
 	<div id="function_this" class="step" data-x="9000" data-y="3000">
 		<div class="slide">
 			<h2><span class="this">this</span> in a function scope</h2>
-			<ul><li>JavaScript:</li></ul>
+			<div class="invisible">
+				<ul><li>JavaScript:</li></ul>
 {% highlight javascript %}
 function myFunc(){
   console.log('What is this?:', this.toString());
 }
 myFunc();
 {% endhighlight %}
-			<ul><li>Output:</li></ul>
+			</div>
+			<div class="invisible">
+				<ul><li>Output:</li></ul>
 {% highlight bash %}
 What is this?: [object Window]
 {% endhighlight %}
-			<ul><li>In a function scope, <span class="this">this</span> is the window by default.</li></ul>
+				<ul><li>In a function scope, <span class="this">this</span> is the window by default.</li></ul>
+			</div>
 		</div>
 	</div>
 	<div id="event_handler_this" class="step" data-x="12000" data-y="3000">
 		<div class="slide">
 			<h2><span class="this">this</span> in an event handler</h2>
-			<ul><li>HTML:</li></ul>
+			<div class="invisible">
+				<ul><li>HTML:</li></ul>
 {% highlight javascript %}
 <div id="my_div">Click Me!</div>
 {% endhighlight %}
-			<ul><li>JavaScript:</li></ul>
+				<ul><li>JavaScript:</li></ul>
 {% highlight javascript %}
 function myFunc(){
   console.log('What is this?:', this.toString());
 }
 document.getElementById('my_div').addEventListener('click', myFunc);
 {% endhighlight %}
-			<ul><li>Output on click:</li></ul>
+			</div>
+			<div class="invisible">
+				<ul><li>Output on click:</li></ul>
 {% highlight bash %}
 What is this?: [object HTMLDivElement]
 {% endhighlight %}
-			<ul><li>In the scope of a function invoked as an event handler, <span class="this">this</span> is always the event target.</li></ul>
+				<ul><li>In the scope of a function invoked as an event handler, <span class="this">this</span> is always the event target.</li></ul>
 		</div>
 	</div>
+</div>
 	<div id="method_this" class="step" data-x="15000" data-y="3000">
 		<div class="slide">
 			<h2><span class="this">this</span> in an object method</h2>
-			<ul><li>JavaScript:</li></ul>
+			<div class="invisible">
+				<ul><li>JavaScript:</li></ul>
 {% highlight javascript %}
 var myObj = {
   name : 'myObj',
@@ -89,20 +98,24 @@ var myObj = {
 
 myObj.myMethod();
 {% endhighlight %}
-		<ul><li>Output:</li></ul>
+		</div>
+		<div class="invisible">
+			<ul><li>Output:</li></ul>
 {% highlight bash %}
 What is this?: {"name":"myObj"}
 {% endhighlight %}
-			<ul><li>When a function is invoked as a property on an object, <span class="this">this</span> is always the object.</li></ul>
+				<ul><li>When a function is invoked as a property on an object, <span class="this">this</span> is always the object.</li></ul>
+			</div>
 		</div>
 	</div>
 	<div id="method_this_gotcha" class="step" data-x="18000" data-y="3000">
 		<div class="slide">
 			<h2>The dot is important</h2>
-			<ul>
+			<ul class="invisible">
 				<li>If the function is defined as a property, but isn't called as a property, then <span class="this">this</span> will not be the object.</li>
 			</ul>
-			<ul><li>JavaScript:</li></ul>
+			<div class="invisible">
+				<ul><li>JavaScript:</li></ul>
 {% highlight javascript %}
 var myObj = {
   name : 'myObj',
@@ -115,17 +128,21 @@ var myObj = {
 myOtherRef = myObj.myMethod();
 myOtherRef();
 {% endhighlight %}
-			<ul><li>Output:</li></ul>
+			</div>
+			<div class="invisible">
+				<ul><li>Output:</li></ul>
 {% highlight bash %}
 What is this?: [object Window]
 {% endhighlight %}
+			</div>
 		</div>
 	</div>
 	<div id="nested_this" class="step" data-x="21000" data-y="3000">
 		<div class="slide">
 			<h2><span class="this">this</span> in a nested function</h2>
-			<ul><li>Is <span class="this">this</span> the same in a function inside a function?</li></ul>
-			<ul><li>JavaScript:</li></ul>
+			<ul class="invisible"><li>Is <span class="this">this</span> the same in a function inside a function?</li></ul>
+			<div class="invisible">
+				<ul><li>JavaScript:</li></ul>
 {% highlight javascript %}
 var myObj = {
   myMethod : function(){ 
@@ -139,22 +156,26 @@ var myObj = {
 
 myObj.myMethod();
 {% endhighlight %}
-			<ul><li>Output:</li></ul>
+			</div>
+			<div class="invisible">
+				<ul><li>Output:</li></ul>
 {% highlight bash %}
 What is this?: [object Object]
 What is this (nested)?: [object Window]
 {% endhighlight %}
-			<ul><li>Each function has its own scope, and its own <span class="this">this</span>.</li></ul>
+				<ul><li>Each function has its own scope, and its own <span class="this">this</span>.</li></ul>
+			</div>
 		</div>
 	</div>
 	<div id="call_and_apply" class="step" data-x="24000" data-y="3000">
 		<div class="slide">
 			<h2>Specifying <span class="this">this</span> with call and apply</h2>
 			<ul>
-				<li><span class="this">this</span> is determined by how the function is called.</li>
-				<li>Using the function's call and apply methods, it is possible to specify <span class="this">this</span>.</li>
+				<li class="invisible"><span class="this">this</span> is determined by how the function is called.</li>
+				<li class="invisible">Using the function's call and apply methods, it is possible to specify <span class="this">this</span>.</li>
 			</ul>
-			<ul><li>JavaScript:</li></ul>
+			<div class="invisible">
+				<ul><li>JavaScript:</li></ul>
 {% highlight javascript %}
 var myObj = {};
 
@@ -166,29 +187,32 @@ myFunc();
 myFunc.call(myObj);
 myFunc.apply(myObj);
 {% endhighlight %}
-			<ul><li>Output:</li></ul>
+			</div>
+			<div class="invisible">
+				<ul><li>Output:</li></ul>
 {% highlight bash %}
 What is this?: [object Window]
 What is this?: [object Object]
 What is this?: [object Object]
 {% endhighlight %}
+			</div>
 		</div>
 	</div>
 	<div id="uses_of_call_and_apply" class="step" data-x="27000" data-y="3000">
 		<div class="slide">
 			<h2>When to use call and apply</h2>
 			<ul>
-				<li>call and apply both take <span class="this">this</span> as the first argument</li>
-				<li>call and apply differ in how they pass arguments to the invoked function.
+				<li class="invisible">call and apply both take <span class="this">this</span> as the first argument</li>
+				<li class="invisible">call and apply differ in how they pass arguments to the invoked function.
 					<ul>
-						<li>call passes along arguments as they are passed to it.</li>
-						<li>apply takes an array of arguments.</li>
+						<li class="invisible">call passes along arguments as they are passed to it.</li>
+						<li class="invisible">apply takes an array of arguments.</li>
 					</ul>
 				</li>
-				<li>There are two main reasons to use call and apply.
+				<li class="invisible">There are two main reasons to use call and apply.
 					<ul>
-						<li>To change <span class="this">this</span>.</li>
-						<li>To preserve <span class="this">this</span>.</li>
+						<li class="invisible">To change <span class="this">this</span>.</li>
+						<li class="invisible">To preserve <span class="this">this</span>.</li>
 					</ul>
 				</li>
 			</ul>
@@ -198,11 +222,12 @@ What is this?: [object Object]
 		<div class="slide">
 			<h2><span class="this">this</span> is annoying...</h2>
 			<ul>
-				<li>Keeping track of <span class="this">this</span> can be a pain.</li>
-				<li>The fact that <span class="this">this</span> changes is essential to how JavaScript works.</li>
-				<li>Prototypal inheritence works because the browser calls prototype methods on other objects.</li>
+				<li class="invisible">Keeping track of <span class="this">this</span> can be a pain.</li>
+				<li class="invisible">The fact that <span class="this">this</span> changes is essential to how JavaScript works.</li>
+				<li class="invisible">Prototypal inheritence works because the browser calls prototype methods on other objects.</li>
 			</ul>
-			<ul><li>JavaScript:</li></ul>
+			<div class="invisible">
+				<ul><li>JavaScript:</li></ul>
 {% highlight javascript %}
 var myArr = [1, 2, 3];
 
@@ -210,18 +235,22 @@ console.log('myArr: ', myArr.join(','));
 // Is the same as:
 console.log('myArr: ', Array.prototype.join.call(myArr, ','));
 {% endhighlight %}
-			<ul><li>Output:</li></ul>
+			</div>
+			<div class="invisible">
+				<ul><li>Output:</li></ul>
 {% highlight bash %}
 myArr: 1,2,3
 myArr: 1,2,3
 {% endhighlight %}
+			</div>
 		</div>
 	</div>
 	<div id="practical_call_and_apply_2" class="step" data-x="33000" data-y="3000">
 		<div class="slide">
 			<h2>A practical use of call and apply</h2>
-			<ul><li>Lets say you want to extend the regular console logging to prepend a date string.</li></ul>
-			<ul><li>JavaScript:</li></ul>
+			<ul class="invisible"><li>Lets say you want to extend the regular console logging to prepend a date string.</li></ul>
+			<div class="invisible">
+				<ul><li>JavaScript:</li></ul>
 {% highlight javascript %}
 function myLogger(){
   // Changing `this`
@@ -232,12 +261,36 @@ function myLogger(){
 
 myLogger('Wow, it works!');
 {% endhighlight %}
-			<ul><li>Output:</li></ul>
+			</div>
+			<div class="invisible">
+				<ul><li>Output:</li></ul>
 {% highlight bash %}
 Wed Jun 04 2014 Wow, it works!
 {% endhighlight %}
+			</div>
 		</div>
 	</div>
 </div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js" type="text/javascript"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/impress.js/0.5.3/impress.js" type="text/javascript"></script>
-<script type="text/javascript">impress().init();</script>
+<script type="text/javascript">
+	!function(){
+		var step = null;
+
+		$('#impress').on('impress:stepenter', function(){
+			step = $(event.target);
+		})
+
+		$(window).on('keypress', function(e){
+				if(e.which === 13){
+					var elements = step.find('.invisible');
+				if(elements.length)
+					elements.eq(0).toggleClass('invisible', false).hide().fadeIn(1000);
+				else
+					api.next();
+			}
+		});
+		var api = impress();
+		api.init();
+	}();
+</script>

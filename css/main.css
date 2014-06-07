@@ -18,6 +18,15 @@ body {
 	text-shadow: 1px 1px 1px #333;
 }
 
+.nav_message {
+	display: inline-block;
+	margin-left: 20px;
+	margin-top: 20px;
+	font-family: Consolas, monospace;
+	color: #cb4b16;
+	text-shadow: 1px 1px 1px #333;
+}
+
 .slide {
 	width: 1000px;
 	font-size: 25px;
